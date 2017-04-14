@@ -15,7 +15,7 @@ import java.util.List;
 @Entity
 public class Menu {
     @NotNull
-    @Size(min=3,max=15,message="Name can not be empty!")
+    @Size(min=3,max=15)
     private String name;
 
 

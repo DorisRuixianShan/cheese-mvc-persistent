@@ -40,7 +40,7 @@ public class MenuController {
     }
 
     @RequestMapping(value="add", method= RequestMethod.GET)
-    public String add(Model model){
+    public String addMenu (Model model){
         model.addAttribute("title","Add Menu");
         model.addAttribute(new Menu());
         return"menu/add";
@@ -48,7 +48,7 @@ public class MenuController {
 
 
     @RequestMapping(value="add",method=RequestMethod.POST)
-    public String add(Model model, @ModelAttribute @Valid Menu menu, Errors errors){
+    public String addMenu (Model model, @ModelAttribute @Valid Menu menu, Errors errors){
         if (errors.hasErrors()){
             model.addAttribute("title","Add Menu");
             return "menu/add";
@@ -56,7 +56,7 @@ public class MenuController {
 
         menuDao.save(menu);
 
-        return "redirect:view/" + menu.getId();
+        return "redirect:../view/" + menu.getId();
     }
 
     @RequestMapping(value="view/{menuId}", method=RequestMethod.GET)
@@ -72,7 +72,7 @@ public class MenuController {
     }
 
     @RequestMapping(value="add-item/{menuId}", method=RequestMethod.GET)
-    public String addItem (Model model, @PathVariable int menuId){
+    public String addItem (Model model, @PathVariable int menuId) {
         Menu menu = menuDao.findOne(menuId);
         AddMenuItemForm form = new AddMenuItemForm(menu, cheeseDao.findAll());
 
@@ -85,10 +85,10 @@ public class MenuController {
 
     @RequestMapping(value="add-item", method=RequestMethod.POST)
     public String addItem(Model model, @ModelAttribute @Valid AddMenuItemForm form,
-                          Errors errors, @PathVariable int menuId){
+                          Errors errors){
         if (errors.hasErrors()){
             model.addAttribute("form",form);
-            return "menu/add-item";
+            return "menu/add-item/";
         }
 
         Menu menu=menuDao.findOne(form.getMenuId());
@@ -97,7 +97,7 @@ public class MenuController {
         menu.addItem(theCheese);
         menuDao.save(menu);
 
-        return "redirect:/view/" + menu.getId();
+        return "redirect:/menu/view/" + menu.getId();
     }
 
 }

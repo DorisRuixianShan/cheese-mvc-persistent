@@ -11,14 +11,15 @@
         <label th:for="cheeseId">Cheese</label>
         <select name="cheeseId">
             <option th:each="cheese: *{cheeses}"
-                    th: text="${cheese.name}"
-                    th: value="${cheese.id}">
-
+                    th:text="${cheese.name}"
+                    th:value="${cheese.id}">
             </option>
         </select>
     </div>
 
     <input type="hidden" name="menuId" th:value="*{menu.id}"/>
+
+    <input type="submit" value="Add Item" />
 </form>
 
 </body>
